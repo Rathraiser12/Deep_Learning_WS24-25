@@ -2,12 +2,18 @@ from pattern import Checker
 from pattern import Circle
 from pattern import Spectrum
 
-if __name__ == "__main__":
-    checker = Checker(resolution=256, tile_size=32)
+def main():
+    resolution = 300
+    tile_size = 30
+
+    checker = Checker(resolution, tile_size)
     checker.draw()
     checker.show()
 
-    circle = Circle(resolution=256, radius=50, position=(128, 128))
+
+    radius = 50
+    position = (150, 150)
+    circle = Circle(resolution, radius, position)
     circle.draw()
     circle.show()
 
@@ -15,3 +21,5 @@ if __name__ == "__main__":
     spectrum.draw()
     spectrum.show()
 
+if __name__ == "__main__":
+    main()

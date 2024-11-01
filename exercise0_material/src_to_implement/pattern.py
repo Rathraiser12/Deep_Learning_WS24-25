@@ -3,26 +3,38 @@ import matplotlib.pyplot as plt
 
 class Checker:
     def __init__(self, resolution, tile_size):
+
+        if resolution % (2 * tile_size) != 0:
+            raise ValueError("Resolution must be divisible by 2 * tile_size.")
+
         self.resolution = resolution
         self.tile_size = tile_size
         self.output = None
 
     def draw(self):
-        if self.resolution % (2 * self.tile_size) != 0:
-            raise ValueError("Resolution must be divisible by 2 * tile_size.")
 
-        pattern_tile = np.array([[0, 1], [1, 0]])  # Basic 2x2 tile
-        tile = np.tile(pattern_tile, (self.tile_size, self.tile_size))
-        self.output = np.tile(tile, (self.resolution // (2 * self.tile_size), self.resolution // (2 * self.tile_size)))
-        return self.output
+        # Create a single tile with black (0) and white (1) squares
+        single_tile = np.zeros((self.tile_size * 2, self.tile_size * 2), dtype=int)
+        single_tile[:self.tile_size, :self.tile_size] = 0  # top-left black
+        single_tile[:self.tile_size, self.tile_size:] = 1  # top-right white
+        single_tile[self.tile_size:, :self.tile_size] = 1  # bottom-left white
+        single_tile[self.tile_size:, self.tile_size:] = 0  # bottom-right black
+
+        # Repeat the single tile pattern to match the resolution
+        pattern = np.tile(single_tile, (self.resolution // (2 * self.tile_size), self.resolution // (2 * self.tile_size)))
+
+        # Store the pattern in self.output
+        self.output = pattern
+        return self.output.copy() # Return a copy to ensure independence from self.output
 
     def show(self):
         if self.output is None:
             raise ValueError("Draw the pattern before displaying it.")
+
+
         plt.imshow(self.output, cmap="gray")
         plt.axis("off")
         plt.show()
-
 
 class Circle:
     def __init__(self, resolution, radius, position):
@@ -33,12 +45,15 @@ class Circle:
 
 
     def draw(self):
-        x = np.arange(self.resolution)
-        y = np.arange(self.resolution)
-        xx, yy = np.meshgrid(x, y)
-        distance = np.sqrt((xx - self.position[0]) ** 2 + (yy - self.position[1]) ** 2)
-        self.output = (distance <= self.radius).astype(int)
-        return self.output
+        # Create a meshgrid of coordinates
+        x, y = np.meshgrid(np.arange(self.resolution), np.arange(self.resolution))
+
+        # Calculate the distance from the center for each point
+        dist_from_center = (x - self.position[0])**2 + (y - self.position[1])**2
+
+        # Create a binary circle pattern
+        self.output = dist_from_center <= self.radius**2
+        return np.array(self.output, copy=True)
 
     def show(self):
         if self.output is None:
@@ -57,7 +72,7 @@ class Spectrum:
         green_channel = np.linspace(0, 1, self.resolution).reshape(-1, 1).repeat(self.resolution, axis=1)
         blue_channel = np.ones((self.resolution, self.resolution)) - red_channel
         self.output = np.stack((red_channel, green_channel, blue_channel), axis=-1)
-        return self.output
+        return self.output.copy()
 
     def show(self):
         if self.output is None:
