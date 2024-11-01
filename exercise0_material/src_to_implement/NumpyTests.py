@@ -161,8 +161,8 @@ class TestSpectrum(unittest.TestCase):
 class TestGen(unittest.TestCase):
     def setUp(self):
         # Set the label and the file path
-        self.label_path = '//home//rathan//Pycharm/DL//exercise0_material//src_to_implement//data//Labels.json'
-        self.file_path = '//home//rathan//Pycharm//DL//exercise0_material//src_to_implement//data//exercise_data/'
+        self.label_path = '/home/rathan/Pycharm_dl/github/DL24/exercise0_material/src_to_implement/data/Labels.json'
+        self.file_path = '/home/rathan/Pycharm_dl/github/DL24/exercise0_material/src_to_implement/data/exercise_data'
 
     def _get_corner_points(self, image):
         # Utility function to check whether the augmentations where performed
