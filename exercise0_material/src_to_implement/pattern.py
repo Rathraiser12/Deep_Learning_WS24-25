@@ -13,17 +13,17 @@ class Checker:
 
     def draw(self):
 
-        # Create a single tile with black (0) and white (1) squares
+        # Creating a single tile with black (0) and white (1) squares
         single_tile = np.zeros((self.tile_size * 2, self.tile_size * 2), dtype=int)
         single_tile[:self.tile_size, :self.tile_size] = 0  # top-left black
         single_tile[:self.tile_size, self.tile_size:] = 1  # top-right white
         single_tile[self.tile_size:, :self.tile_size] = 1  # bottom-left white
         single_tile[self.tile_size:, self.tile_size:] = 0  # bottom-right black
 
-        # Repeat the single tile pattern to match the resolution
+        # Repeating the single tile pattern to match the resolution
         pattern = np.tile(single_tile, (self.resolution // (2 * self.tile_size), self.resolution // (2 * self.tile_size)))
 
-        # Store the pattern in self.output
+
         self.output = pattern
         return self.output.copy() # Return a copy to ensure independence from self.output
 
@@ -45,13 +45,13 @@ class Circle:
 
 
     def draw(self):
-        # Create a meshgrid of coordinates
+        # meshgrid of coordinates
         x, y = np.meshgrid(np.arange(self.resolution), np.arange(self.resolution))
 
-        # Calculate the distance from the center for each point
+        # Calculating the distance from the center for each point
         dist_from_center = (x - self.position[0])**2 + (y - self.position[1])**2
 
-        # Create a binary circle pattern
+        # Creating a binary circle pattern
         self.output = dist_from_center <= self.radius**2
         return np.array(self.output, copy=True)
 
