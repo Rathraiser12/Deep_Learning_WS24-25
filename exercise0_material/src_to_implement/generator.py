@@ -3,11 +3,11 @@ import json
 import numpy as np
 import matplotlib.pyplot as plt
 import random
-from skimage.transform import resize  # Import for resizing
+from skimage.transform import resize  # Import for resizing0
 
 class ImageGenerator:
     def __init__(self, file_path, label_path, batch_size, image_size,
-                 rotation=False, mirroring=False, shuffle=True):
+                 rotation=False, mirroring=False, shuffle=False):
         self.file_path = file_path
         self.label_path = label_path
         self.batch_size = batch_size
@@ -73,7 +73,7 @@ class ImageGenerator:
             img /= 255.0
 
         # Ensuring Normalization
-        img = np.clip(img, 0.0, 1.0)
+        #img = np.clip(img, 0.0, 1.0)
 
         # Resize the image
         img = resize(img, self.image_size, anti_aliasing=True)
@@ -153,10 +153,10 @@ class ImageGenerator:
             plt.subplot(4, 4, i + 1)
             img = images[i]
             # If the image has only one channel, reshape it appropriately
-            if img.ndim == 2 or img.shape[2] == 1:
+            '''if img.ndim == 2 or img.shape[2] == 1:
                 plt.imshow(img.squeeze(), cmap='gray')
-            else:
-                plt.imshow(img)
+            else:'''
+            plt.imshow(img)
             plt.title(self.class_name(labels[i]))
             plt.axis('off')
 

@@ -51,7 +51,7 @@ class Circle:
         # Calculating the distance from the center for each point
         dist_from_center = (x - self.position[0])**2 + (y - self.position[1])**2
 
-        # Creating a binary circle pattern
+        # Creating a binary circle pattern using boolean array
         self.output = dist_from_center <= self.radius**2
         return np.array(self.output, copy=True)
 

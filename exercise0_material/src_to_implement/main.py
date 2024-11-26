@@ -37,7 +37,7 @@ def main():
 
     # Initializing the ImageGenerator parameters to see the results
     batch_size = 10
-    image_shape = [32, 32, 3]  # Example shape, adjust as necessary
+    image_shape = [32, 32, 3]  # adjust as needed
 
     generator = ImageGenerator(
         file_path=image_dir,
