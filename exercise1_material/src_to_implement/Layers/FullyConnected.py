@@ -36,8 +36,10 @@ class FullyConnected(BaseLayer):
         batch_size = input_tensor.shape[0]
         ones = np.ones((batch_size, 1))
         extended_input = np.hstack((input_tensor, ones))
-
+        #print('batvh',batch_size)
+        #print('input', input_tensor)
         self.input_tensor = extended_input  # Store for backward pass
+        #print('extended', extended_input)
 
         output = np.dot(extended_input, self.weights)
         # print(f"Output shape: {output.shape}")

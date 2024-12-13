@@ -42,7 +42,7 @@ class TestFullyConnected2(unittest.TestCase):
         layer = FullyConnected.FullyConnected(self.input_size, self.output_size)
         self.assertTrue(layer.trainable, "Possible reason: FullyConnected Layer doesn't inherit the Base Layer and/or"
                                          "attribute trainable isn't set in the FullyConnected Layer.")
-    
+
     def test_weights_size(self):
         layer = FullyConnected.FullyConnected(self.input_size, self.output_size)
         self.assertTrue((layer.weights.shape) in ((self.input_size + 1, self.output_size), (self.output_size, self.input_size + 1)),
