@@ -1,0 +1,24 @@
+name: dl-test
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  # Keep your original pinned NumPy, but be aware this is quite outdated.
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - scikit-image
+  - scikit-learn
+  - jupyterlab
+  - tqdm>=4.36
+  - pip
+  # Remove "cuda100" and specify GPU-enabled PyTorch + CUDA 11.6
+  - pytorch=1.13.*
+  - torchvision=0.14.*
+  - pytorch-cuda=11.6
+  - pip:
+    - onnxruntime
